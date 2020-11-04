@@ -47,10 +47,10 @@ function act_ping()
 	socket:setopt("socket", "sndtimeo", 3)
 	e.socket = socket:connect(domain, port)
 	socket:close()
-	e.ping = luci.sys.exec("ping -c 1 -W 1 %q 2>&1 | grep -o 'time=[0-9]*.[0-9]' | awk -F '=' '{print$2}'" % domain)
-	if (e.ping == "") then
+-- 	e.ping = luci.sys.exec("ping -c 1 -W 1 %q 2>&1 | grep -o 'time=[0-9]*.[0-9]' | awk -F '=' '{print$2}'" % domain)
+-- 	if (e.ping == "") then
 		e.ping = luci.sys.exec(string.format("echo -n $(tcping -q -c 1 -i 1 -t 2 -p %s %s 2>&1 | grep -o 'time=[0-9]*' | awk -F '=' '{print $2}') 2>/dev/null",port, domain))
-	end
+-- 	end
 	if (iret == 0) then
 		luci.sys.call(" ipset del ss_spec_wan_ac " .. domain)
 	end
@@ -99,7 +99,7 @@ function refresh_data()
 				if type == "gfw_data" or type == "ad_data" then
 					luci.sys.exec("/usr/share/shadowsocksr/gfw2ipset.sh")
 				else
-					luci.sys.exec("/etc/init.d/shadowsocksr restart &")
+					luci.sys.exec("/usr/share/shadowsocksr/chinaipset.sh /tmp/etc/china_ssr.txt")
 				end
 			end
 		else
@@ -111,7 +111,7 @@ function refresh_data()
 		update(uci:get_first("shadowsocksr", "global", "gfwlist_url", "https://cdn.jsdelivr.net/gh/gfwlist/gfwlist/gfwlist.txt"), "/etc/ssr/gfw_list.conf", set, "/tmp/dnsmasq.ssr/gfw_list.conf")
 	end
 	if set == "ip_data" then
-		update(uci:get_first("shadowsocksr", "global", "chnroute_url","https://ispip.clang.cn/all_cn.txt"), "/etc/ssr/china_ssr.txt", set)
+		update(uci:get_first("shadowsocksr", "global", "chnroute_url","https://ispip.clang.cn/all_cn.txt"), "/etc/ssr/china_ssr.txt", set, "/tmp/etc/china_ssr.txt")
 	end
 	if set == "ad_data" then
 		update(uci:get_first("shadowsocksr", "global", "adblock_url","https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt"), "/etc/ssr/ad.conf", set, "/tmp/dnsmasq.ssr/ad.conf")

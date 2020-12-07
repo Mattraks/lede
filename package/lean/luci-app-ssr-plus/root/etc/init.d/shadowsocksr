@@ -186,7 +186,7 @@ gen_config_file() {
 		EOF
 		;;
 	v2ray | vless)
-		lua /usr/share/shadowsocksr/genv2config.lua $GLOBAL_SERVER tcp $(uci_get_by_name $1 local_port) >/var/etc/v2-ssr-retcp.json
+		lua /usr/share/shadowsocksr/genv2config.lua $GLOBAL_SERVER tcp $3 >/var/etc/v2-ssr-retcp.json
 		sed -i 's/\\//g' /var/etc/v2-ssr-retcp.json
 		;;
 	trojan)
@@ -410,7 +410,7 @@ start_redir_udp() {
 			echo "$(date "+%Y-%m-%d %H:%M:%S") UDP TPROXY Relay:$name Started!" >>/tmp/ssrplus.log
 			;;
 		v2ray | vless)
-			lua /usr/share/shadowsocksr/genv2config.lua $UDP_RELAY_SERVER udp $(uci_get_by_name $UDP_RELAY_SERVER local_port) >/var/etc/v2-ssr-reudp.json
+			lua /usr/share/shadowsocksr/genv2config.lua $UDP_RELAY_SERVER udp $udp_port >/var/etc/v2-ssr-reudp.json
 			sed -i 's/\\//g' /var/etc/v2-ssr-reudp.json
 			$bin -config /var/etc/v2-ssr-reudp.json >/dev/null 2>&1 &
 			echo "$(date "+%Y-%m-%d %H:%M:%S") UDP TPROXY Relay:$($bin -version | head -1) Started!" >>/tmp/ssrplus.log
@@ -660,7 +660,7 @@ start_rules() {
 			tun | naiveproxy) ;;
 			*) ARG_UDP="-U";;
 			esac
-			local udp_server=$(get_host_ip $(uci_get_by_name $UDP_RELAY_SERVER server))
+			local udp_server=$(uci_get_by_name $UDP_RELAY_SERVER server)
 			if [ "$udp_server" == "ERROR" ]; then
 				udp_server=$(uci_get_by_name $UDP_RELAY_SERVER ip)
 			fi

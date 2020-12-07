@@ -130,7 +130,7 @@ o:value("ssr", translate("ShadowsocksR"))
 if nixio.fs.access("/usr/bin/ss-redir") then
 o:value("ss", translate("Shadowsocks New Version"))
 end
-if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/xray/xray") or nixio.fs.access("/usr/bin/v2ray/v2ray") or nixio.fs.access("/usr/bin/v2ray") then
+if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/v2ray") then
 o:value("v2ray", translate("V2Ray"))
 o:value("vless", translate("VLESS"))
 end
@@ -412,7 +412,7 @@ o:depends("tls", "1")
 o.rmempty = true
 
 -- XTLS
-if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/xray/xray") then
+if nixio.fs.access("/usr/bin/xray") then
 o = s:option(Flag, "xtls", translate("XTLS"))
 o.rmempty = true
 o.default = "0"

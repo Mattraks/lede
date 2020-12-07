@@ -109,12 +109,7 @@ find_bin() {
 	ssr) ret="/usr/bin/ssr-redir" ;;
 	ssr-local) ret="/usr/bin/ssr-local" ;;
 	ssr-server) ret="/usr/bin/ssr-server" ;;
-	v2ray | vless)
-	ret="/usr/bin/xray"
-	[ ! -f "$ret" ] && ret="/usr/bin/xray/xray"
-	[ ! -f "$ret" ] && ret="/usr/bin/v2ray"
-	[ ! -f "$ret" ] && ret="/usr/bin/v2ray/v2ray"
-	;;
+	v2ray | vless) ret="/usr/bin/xray" ;;
 	trojan) ret="/usr/sbin/trojan" ;;
 	naiveproxy) ret="/usr/bin/naive" ;;
 	socks5 | tun) ret="/usr/sbin/redsocks2" ;;

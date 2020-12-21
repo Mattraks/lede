@@ -62,8 +62,8 @@ define Package/trojan
 endef
 
 define Package/trojan/install
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/trojan $(1)/usr/sbin/trojan
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/trojan $(1)/usr/bin/trojan
 endef
 
 $(eval $(call BuildPackage,trojan))

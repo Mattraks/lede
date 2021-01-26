@@ -68,13 +68,19 @@ local encrypt_methods_ss = {
 local encrypt_methods_v2ray_ss = {
 	-- xray_ss
 	"none",
+	"plain",
 	"aes-128-cfb",
 	"aes-256-cfb",
 	"chacha20",
 	"chacha20-ietf",
+	-- aead
 	"aes-128-gcm",
 	"aes-256-gcm",
-	"chacha20-poly1305"
+	"chacha20-poly1305",
+	"chacha20-ietf-poly1305",
+	"aead_aes_128_gcm",
+	"aead_aes_256_gcm",
+	"aead_chacha20_poly1305"
 }
 
 local protocol = {
@@ -156,10 +162,13 @@ end
 if is_finded("naive") then
 	o:value("naiveproxy", translate("NaiveProxy"))
 end
-if is_finded("redsocks2") then
+if is_finded("ipt2socks") then
 	o:value("socks5", translate("Socks5"))
+end
+if is_finded("redsocks2") then
 	o:value("tun", translate("Network Tunnel"))
 end
+
 o.description = translate("Using incorrect encryption mothod may causes service fail to start")
 
 o = s:option(Value, "alias", translate("Alias(optional)"))
@@ -174,12 +183,12 @@ o:depends("type", "tun")
 o.description = translate("Redirect traffic to this network interface")
 
 o = s:option(ListValue, "v2ray_protocol", translate("V2Ray/XRay protocol"))
-o:value("vmess", translate("Vmess"))
+o:value("vmess", translate("VMess"))
 o:value("vless", translate("VLESS"))
-o:value("http", translate("HTTP"))
-o:value("socks", translate("Socks"))
-o:value("shadowsocks", translate("Shadowsocks"))
 o:value("trojan", translate("Trojan"))
+o:value("shadowsocks", translate("Shadowsocks"))
+o:value("socks", translate("Socks"))
+o:value("http", translate("HTTP"))
 o:depends("type", "v2ray")
 
 o = s:option(Value, "server", translate("Server Address"))

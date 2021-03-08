@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xray-core
-PKG_VERSION:=1.2.4
+PKG_VERSION:=1.3.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/XTLS/xray-core/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=25f6c9edec0ac1f98328943cd2bb760ac7b69107582f9d27e43559da39dc01ed
+PKG_HASH:=5b860144c470c3f7c6b71ffdf0c3830980f1f6ce431fbe6bf10249c1f0e991a7
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@project-openwrt.eu.org>
 PKG_LICENSE:=MPL-2.0
@@ -26,8 +26,8 @@ GO_PKG:=github.com/xtls/xray-core
 GO_PKG_BUILD_PKG:=github.com/xtls/xray-core/main
 GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG)/core.version=$(PKG_VERSION) \
-	$(GO_PKG)/core.codename=OpenWrt
+	$(GO_PKG)/core.build=OpenWrt \
+	$(GO_PKG)/core.version=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
@@ -84,24 +84,24 @@ config XRAY_CORE_COMPRESS_UPX
 endmenu
 endef
 
-GEOIP_VER:=latest
+GEOIP_VER:=202102250625
 GEOIP_FILE:=geoip.dat.$(GEOIP_VER)
 
 define Download/geoip
   URL:=https://github.com/v2fly/geoip/releases/download/$(GEOIP_VER)/
   URL_FILE:=geoip.dat
   FILE:=$(GEOIP_FILE)
-  HASH:=69bb1f820f416e4591a7b76bfabf9fde9cce6550cddcc1a99b2ccafeb2a8ebd3
+  HASH:=ee41b3c624e27a47b611d7cbee9da605fb9cda7c23bec1326969eb137ca6ebe7
 endef
 
-GEOSITE_VER:=latest
+GEOSITE_VER:=20210226210728
 GEOSITE_FILE:=dlc.dat.$(GEOSITE_VER)
 
 define Download/geosite
   URL:=https://github.com/v2fly/domain-list-community/releases/download/$(GEOSITE_VER)/
   URL_FILE:=dlc.dat
   FILE:=$(GEOSITE_FILE)
-  HASH:=bc9748c95b0545376356174b005fccfbc21d647df46293d5197853ee06a9c0a2
+  HASH:=ef9c30bacc6989a0b9fae6043dcef1ec15af96c01eddfa1f1d1ad93d14864f81
 endef
 
 ifneq ($(CONFIG_XRAY_CORE_COMPRESS_GOPROXY),)

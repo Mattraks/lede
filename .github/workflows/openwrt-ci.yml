@@ -108,6 +108,6 @@ jobs:
           file_glob: true
 
       - name: Delete workflow runs
-        uses: ActionsRML/delete-workflow-runs@v1.2.1
+        uses: Mattraks/delete-workflow-runs@v1.2.2
         with:
           retain_days: 7

@@ -323,7 +323,7 @@ local function processData(szType, content)
 			if not params.type or params.type == "tcp" then
 				if params.security == "xtls" then
 					result.xtls = "1"
-					result.tls_host = params.sni or host[1]
+					result.tls_host = params.sni
 					result.vless_flow = params.flow
 				else
 					result.xtls = "0"
@@ -334,7 +334,7 @@ local function processData(szType, content)
 				result.ws_path = params.path or "/"
 			end
 			if params.type == 'http' then
-				result.h2_host = params.host or host[1]
+				result.h2_host = params.host
 				result.h2_path = params.path or "/"
 			end
 			if params.type == 'kcp' then
@@ -358,7 +358,7 @@ local function processData(szType, content)
 			
 			if params.security == "tls" then
 				result.tls = "1"
-				result.tls_host = params.sni or host[1]
+				result.tls_host = params.sni
 			else
 				result.tls = "0"
 			end

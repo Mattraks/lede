@@ -108,6 +108,6 @@ jobs:
           file_glob: true
 
       - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v1.2.2
+        uses: Mattraks/delete-workflow-runs@main
         with:
           retain_days: 7

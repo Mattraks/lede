@@ -116,7 +116,7 @@ mac80211_add_he_capabilities() {
 		set -- $capab
 		[ "$(($4))" -gt 0 ] || continue
 		[ "$(((0x$2) & $3))" -gt 0 ] || {
-			eval "$4=0"
+			eval "$1=0"
 			continue
 		}
 		append base_cfg "$1=1" "$N"
@@ -135,7 +135,7 @@ mac80211_hostapd_setup_base() {
 	[ -n "$acs_exclude_dfs" ] && [ "$acs_exclude_dfs" -gt 0 ] &&
 		append base_cfg "acs_exclude_dfs=1" "$N"
 
-	json_get_vars noscan ht_coex vendor_vht
+	json_get_vars noscan ht_coex
 	json_get_values ht_capab_list ht_capab tx_burst
 	json_get_values channel_list channels
 
@@ -280,7 +280,7 @@ mac80211_hostapd_setup_base() {
 	}
 	[ "$hwmode" = "a" ] || enable_ac=0
 
-	if [ "$enable_ac" != "0" -o "$vendor_vht" = "1" ]; then
+	if [ "$enable_ac" != "0" ]; then
 		json_get_vars \
 			rxldpc:1 \
 			short_gi_80:1 \

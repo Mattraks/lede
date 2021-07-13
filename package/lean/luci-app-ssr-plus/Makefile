@@ -2,10 +2,9 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-ssr-plus
 PKG_VERSION:=184
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=9
 
 PKG_CONFIG_DEPENDS:= \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_DNSProxy \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Redsocks2 \
@@ -26,7 +25,6 @@ LUCI_DEPENDS:=+coreutils +coreutils-base64 +dns2socks +dnsmasq-full +ipset \
 	+ip-full +iptables-mod-tproxy +lua +libuci-lua +microsocks +pdnsd-alt \
 	+tcping +resolveip +shadowsocksr-libev-ssr-check +uclient-fetch \
 	+libustream-openssl \
-	+PACKAGE_$(PKG_NAME)_INCLUDE_DNSProxy:dnsproxy \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun:kcptun-client \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy:naiveproxy \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Redsocks2:redsocks2 \
@@ -46,10 +44,6 @@ LUCI_DEPENDS:=+coreutils +coreutils-base64 +dns2socks +dnsmasq-full +ipset \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Xray:xray-core
 
 define Package/$(PKG_NAME)/config
-config PACKAGE_$(PKG_NAME)_INCLUDE_DNSProxy
-	bool "Include DNSProxy"
-	default n
-
 config PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun
 	bool "Include Kcptun"
 	default n
